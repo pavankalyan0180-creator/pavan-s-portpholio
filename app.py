@@ -55,8 +55,10 @@ def contact():
         email_message["Reply-To"] = email
 
         server = None
+
         try:
             server = smtplib.SMTP("smtp.gmail.com", 587)
+
             server.starttls()
 
             server.login(sender_email, sender_password)
@@ -66,14 +68,21 @@ def contact():
                 sender_email,
                 email_message.as_string()
             )
-        except Exception:
+
+        except Exception as e:
+
+            print(e)
+
             return redirect(url_for("contact", error="send_failed"))
+
         finally:
+
             if server:
                 server.quit()
 
         return redirect(url_for("contact", sent="1"))
 
+    return render_template("contact.html", page="contact")
     return render_template(
         "contact.html",
         page="contact",
