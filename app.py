@@ -33,7 +33,7 @@ def skills():
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
 
-    # GET request → open contact page
+    # OPEN CONTACT PAGE
     if request.method == "GET":
 
         return render_template(
@@ -43,76 +43,93 @@ def contact():
             error=request.args.get("error")
         )
 
-    # POST request → send email
+    # HANDLE FORM SUBMISSION
     if request.method == "POST":
 
         try:
 
-            # Form data
-            name = request.form["name"]
-            email = request.form["email"]
-            message = request.form["message"]
+            # FORM DATA
+            name = request.form.get("name")
+            email = request.form.get("email")
+            message = request.form.get("message")
 
-            # Environment variables
+            print("FORM SUBMITTED")
+            print(name)
+            print(email)
+            print(message)
+
+            # EMAIL VARIABLES
             sender_email = os.getenv("PORTFOLIO_EMAIL")
             sender_password = os.getenv("PORTFOLIO_EMAIL_PASSWORD")
 
-            # Check variables
+            print("EMAIL:", sender_email)
+            print("PASSWORD EXISTS:", bool(sender_password))
+
+            # CHECK VARIABLES
             if not sender_email or not sender_password:
 
-                return redirect(
-                    url_for("contact", error="missing_config")
-                )
+                return """
+                <h1>Environment Variable Error</h1>
+                <p>PORTFOLIO_EMAIL or PASSWORD missing.</p>
+                """
 
-            # Create email
-            email_message = MIMEText(
-                f"""
+            # CREATE EMAIL
+            email_body = f"""
 Name: {name}
 
 Email: {email}
 
 Message:
 {message}
-                """
-            )
+"""
+
+            email_message = MIMEText(email_body)
 
             email_message["Subject"] = "Portfolio Contact Form Submission"
             email_message["From"] = sender_email
             email_message["To"] = sender_email
             email_message["Reply-To"] = email
 
-            # SMTP setup
-            with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            print("CONNECTING SMTP")
 
-                server.starttls()
+            # SMTP CONNECTION
+            server = smtplib.SMTP("smtp.gmail.com", 587)
 
-                server.login(
-                    sender_email,
-                    sender_password
-                )
+            server.starttls()
 
-                server.sendmail(
-                    sender_email,
-                    sender_email,
-                    email_message.as_string()
-                )
+            print("LOGGING IN")
 
-            # Success
+            server.login(
+                sender_email,
+                sender_password
+            )
+
+            print("SENDING MAIL")
+
+            server.sendmail(
+                sender_email,
+                sender_email,
+                email_message.as_string()
+            )
+
+            print("MAIL SENT SUCCESSFULLY")
+
+            server.quit()
+
             return redirect(
                 url_for("contact", sent="1")
             )
 
         except Exception as e:
 
-            print("EMAIL ERROR:", e)
+            print("EMAIL ERROR:", str(e))
 
-            # TEMPORARY DEBUG
             return f"""
-            <h1>Email Error</h1>
-            <p>{e}</p>
+            <h1>Email Sending Failed</h1>
+
+            <p><b>Error:</b> {str(e)}</p>
             """
 
-    # fallback
     return render_template(
         "contact.html",
         page="contact"
