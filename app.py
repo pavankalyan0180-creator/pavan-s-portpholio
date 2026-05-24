@@ -69,8 +69,9 @@ def contact():
                 email_message.as_string()
             )
 
-        except Exception:
-            app.logger.exception("Contact form email failed")
+        except Exception as e:
+            print("Error sending email: {}".format(e))
+
             return redirect(url_for("contact", error="send_failed"))
 
         finally:
@@ -78,7 +79,7 @@ def contact():
                 try:
                     server.quit()
                 except Exception:
-                    app.logger.exception("SMTP quit failed")
+                    print("Error quitting SMTP server")
 
         return redirect(url_for("contact", sent="1"))
 
