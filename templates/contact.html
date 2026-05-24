@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .contact-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
+        gap: 20px;
+        align-items: start;
+    }
+
+    .contact-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+    }
+
+    .contact-links a {
+        color: var(--primary-dark);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .contact-links a:hover {
+        text-decoration: underline;
+    }
+
+    .contact-form {
+        display: grid;
+        gap: 14px;
+    }
+
+    .contact-form label {
+        color: var(--text);
+        font-weight: 700;
+        font-size: 0.92rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%;
+        margin-top: 6px;
+        padding: 12px 13px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        font: inherit;
+        color: var(--text);
+        background: #fff;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+        outline: 3px solid rgba(15, 118, 110, 0.16);
+        border-color: var(--primary);
+    }
+
+    .contact-form textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .form-alert {
+        margin: 0 0 18px;
+        padding: 12px 14px;
+        border: 1px solid rgba(15, 118, 110, 0.28);
+        border-radius: var(--radius);
+        background: #e9f8f5;
+        color: var(--primary-dark);
+        font-weight: 700;
+        animation: successPulse 1s ease-in-out 5, successFade 450ms ease 5s forwards;
+    }
+
+    @keyframes successPulse {
+        0%,
+        100% {
+            box-shadow: 0 0 0 rgba(15, 118, 110, 0);
+            opacity: 1;
+        }
+
+        50% {
+            box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+            opacity: 0.82;
+        }
+    }
+
+    @keyframes successFade {
+        to {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    @media (max-width: 800px) {
+        .contact-layout {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<section class="section">
+    <div class="section-heading">
+        <p class="eyebrow">Contact</p>
+        <h2>Open to healthcare analytics, health informatics, and data roles</h2>
+        <p class="lead">
+            I am interested in roles and collaborations involving healthcare data analysis, clinical informatics, medical data workflows, dashboards, and digital health applications.
+        </p>
+    </div>
+
+    <div class="contact-layout">
+        <article class="card">
+            <h3>Contact details</h3>
+            <p><strong>Name:</strong> Dr. Kamatam Pavan Kalyan Reddy</p>
+            <p><strong>Email:</strong> <a href="mailto:pavankalyankamatam127@gmail.com">pavankalyankamatam127@gmail.com</a></p>
+            <p><strong>Phone:</strong> +91 7799277813</p>
+            <p><strong>Languages:</strong> English, Hindi, Telugu</p>
+            <p><strong>Location:</strong> Tirupati, Andhra Pradesh, India</p>
+            <div class="contact-links">
+                <a href="mailto:pavankalyankamatam127@gmail.com">Gmail</a>
+                <a href="https://www.linkedin.com/in/drkamatam-pavan-kalyan-reddy-b876a3157" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/pavankalyan0180-creator" target="_blank" rel="noopener">GitHub</a>
+                <a href="{{ url_for('static', filename='resume/Dr Pavan Resume 2026.pdf') }}" download>Resume</a>
+            </div>
+        </article>
+
+        <article class="card">
+            <h3>Send a message</h3>
+            {% if sent %}
+            <p class="form-alert">Message sent successfully. Thank you for reaching out.</p>
+            {% endif %}
+            <form class="contact-form" method="POST" action="/contact">
+                <label>
+                    Your Name
+                    <input type="text" name="name" autocomplete="name" required>
+                </label>
+                <label>
+                    Your Email
+                    <input type="email" name="email" autocomplete="email" required>
+                </label>
+                <label>
+                    Message
+                    <textarea name="message" required></textarea>
+                </label>
+                <button class="btn" type="submit">Send Message</button>
+            </form>
+        </article>
+    </div>
+</section>
+{% endblock %}

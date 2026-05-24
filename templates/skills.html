@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .skill-group .tag-list {
+        margin-top: 8px;
+    }
+
+    .cert-card a {
+        color: var(--primary-dark);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .cert-card a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<section class="section">
+    <div class="section-heading">
+        <p class="eyebrow">Skills</p>
+        <h2>Tools and healthcare domain strengths</h2>
+        <p class="lead">
+            Recruiters scan skills quickly, so this page groups tools by practical use instead of percentage bars. This keeps the portfolio confident, clean, and easier to evaluate.
+        </p>
+    </div>
+
+    <div class="grid">
+        <article class="card skill-group">
+            <h3>Data Analysis and Visualization</h3>
+            <div class="tag-list">
+                <span class="tag">Python</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">NumPy</span>
+                <span class="tag">Matplotlib</span>
+                <span class="tag">Seaborn</span>
+                <span class="tag">Power BI</span>
+                <span class="tag">Excel</span>
+            </div>
+        </article>
+        <article class="card skill-group">
+            <h3>Databases and Development</h3>
+            <div class="tag-list">
+                <span class="tag">SQL</span>
+                <span class="tag">MySQL</span>
+                <span class="tag">SQLite</span>
+                <span class="tag">Flask</span>
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">Git</span>
+            </div>
+        </article>
+        <article class="card skill-group">
+            <h3>Healthcare and Informatics</h3>
+            <div class="tag-list">
+                <span class="tag">Clinical Pharmacy</span>
+                <span class="tag">Medication Safety</span>
+                <span class="tag">EHR Concepts</span>
+                <span class="tag">Medical Billing</span>
+                <span class="tag">Claims Analysis</span>
+                <span class="tag">Medical Data Annotation</span>
+            </div>
+        </article>
+        <article class="card skill-group">
+            <h3>Deployment and Workflow</h3>
+            <div class="tag-list">
+                <span class="tag">Render</span>
+                <span class="tag">AWS Basics</span>
+                <span class="tag">Docker</span>
+                <span class="tag">Jupyter Notebook</span>
+                <span class="tag">VS Code</span>
+                <span class="tag">JSON</span>
+                <span class="tag">Windows</span>
+                <span class="tag">Linux</span>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <p class="eyebrow">Certifications</p>
+        <h2>Relevant learning and credentials</h2>
+    </div>
+    <div class="grid">
+        <article class="card cert-card">
+            <h3>Data Analysis with Python</h3>
+            <p class="meta">Coursera | January 20, 2026</p>
+            <a href="https://courses.cognitiveclass.ai/certificates/a7c540d4e61643b7bf93914dd2a00cec" target="_blank" rel="noopener">View Certificate</a>
+        </article>
+        <article class="card cert-card">
+            <h3>Introduction to SQL</h3>
+            <p class="meta">DataCamp | October 27, 2025</p>
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/dcd35e65114eb7120df2caf6b63ba7537a0d0828?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa&utm_source=linkedin" target="_blank" rel="noopener">View Certificate</a>
+        </article>
+        <article class="card cert-card">
+            <h3>AI Fundamentals</h3>
+            <p class="meta">DataCamp | October 28, 2025</p>
+            <a href="https://www.datacamp.com/skill-verification/AIF0023978429947" target="_blank" rel="noopener">View Certificate</a>
+        </article>
+        <article class="card cert-card">
+            <h3>Generative AI Concepts</h3>
+            <p class="meta">DataCamp | October 27, 2025</p>
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/13e4cc84372bf690e60b1a5c817b9bbfa20eda3f" target="_blank" rel="noopener">View Certificate</a>
+        </article>
+        <article class="card cert-card">
+            <h3>Understanding Machine Learning</h3>
+            <p class="meta">DataCamp | October 28, 2025</p>
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/3f94593731e620cafd5cbb8e2e464a7041bbdc2b?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa&utm_source=linkedin" target="_blank" rel="noopener">View Certificate</a>
+        </article>
+        <article class="card cert-card">
+            <h3>Good Clinical Practice</h3>
+            <p class="meta">NIDA Clinical Trials Network | February 7, 2025</p>
+            <a href="{{ url_for('static', filename='certificates/certificate-1.pdf') }}" target="_blank" rel="noopener">View Certificate</a>
+        </article>
+        <article class="card cert-card">
+            <h3>Pharmacovigilance Training</h3>
+            <p class="meta">Clinipro Pharmacovigilance Training Institute | June 30, 2024</p>
+            <a href="{{ url_for('static', filename='certificates/Pavan pharmacovigilance-20250210-WA0003..pdf') }}" target="_blank" rel="noopener">View Certificate</a>
+        </article>
+    </div>
+</section>
+{% endblock %}

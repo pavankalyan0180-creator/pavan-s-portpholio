@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+        gap: 42px;
+        align-items: center;
+    }
+
+    .hero-panel {
+        background: linear-gradient(135deg, #ffffff 0%, #eef7f6 100%);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: clamp(28px, 5vw, 54px);
+        box-shadow: var(--shadow);
+    }
+
+    .hero-photo {
+        width: min(100%, 340px);
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: var(--radius);
+        border: 8px solid #fff;
+        box-shadow: var(--shadow);
+        justify-self: center;
+        transition: transform 260ms ease, box-shadow 260ms ease;
+    }
+
+    .hero-photo:hover {
+        box-shadow: 0 24px 56px rgba(23, 32, 42, 0.16);
+        transform: translateY(-5px);
+    }
+
+    .quick-stats {
+        margin-top: 36px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+    }
+
+    .stat {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 18px;
+    }
+
+    .stat strong {
+        display: block;
+        color: var(--primary-dark);
+        font-size: 1.5rem;
+        line-height: 1.1;
+    }
+
+    .stat span {
+        color: var(--muted);
+        font-size: 0.92rem;
+    }
+
+    @media (max-width: 850px) {
+        .hero {
+            grid-template-columns: 1fr;
+        }
+
+        .quick-stats {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<section class="hero">
+    <div class="hero-panel">
+        <p class="eyebrow">Healthcare Informatics & Data Solutions Portfolio</p>
+        <h1>Dr. Kamatam Pavan Kalyan Reddy</h1>
+        <p class="lead">
+            Healthcare data analyst and health informatics professional with a clinical pharmacy background, focused on turning healthcare data into practical insights for patient care, operations, claims, and digital health workflows.
+        </p>
+        <div class="tag-list" aria-label="Core strengths">
+            <span class="tag">Python</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">Flask</span>
+            <span class="tag">Clinical Pharmacy</span>
+            <span class="tag">Health Informatics</span>
+        </div>
+        <div class="button-row">
+            <a href="/projects" class="btn">View Projects</a>
+            <a href="{{ url_for('static', filename='resume/Dr Pavan Resume 2026.pdf') }}" class="btn secondary" download>Download Resume</a>
+            <a href="/contact" class="btn secondary">Contact Me</a>
+        </div>
+    </div>
+    <img class="hero-photo" src="{{ url_for('static', filename='IMG_2051.JPG') }}" alt="Portrait of Dr. Kamatam Pavan Kalyan Reddy">
+</section>
+
+<section class="section">
+    <div class="quick-stats">
+        <div class="stat">
+            <strong>9.39</strong>
+            <span>MSc Health Informatics and Analytics CGPA</span>
+        </div>
+        <div class="stat">
+            <strong>Pharm.D</strong>
+            <span>Clinical pharmacy foundation</span>
+        </div>
+        <div class="stat">
+            <strong>Healthcare</strong>
+            <span>Claims, EHR, analytics, and patient-care context</span>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <p class="eyebrow">Role Focus</p>
+        <h2>Where I can contribute</h2>
+    </div>
+    <div class="grid">
+        <article class="card">
+            <h3>Healthcare Data Analyst</h3>
+            <p>Analyze clinical and operational data, create dashboards, summarize trends, and support evidence-based healthcare decisions.</p>
+        </article>
+        <article class="card">
+            <h3>Health Informatics Specialist</h3>
+            <p>Work with EHR concepts, clinical workflows, data quality, medical documentation, claims processes, and digital health systems.</p>
+        </article>
+        <article class="card">
+            <h3>Healthcare Application Developer</h3>
+            <p>Build practical Flask-based tools for patient tracking, data annotation, dashboards, and healthcare workflow support.</p>
+        </article>
+    </div>
+</section>
+{% endblock %}

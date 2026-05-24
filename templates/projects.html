@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .project-card {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .project-card .button-row {
+        margin-top: auto;
+    }
+
+    .project-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 38px;
+        padding: 7px 12px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        color: var(--primary-dark);
+        font-weight: 700;
+        text-decoration: none;
+        transition: background 180ms ease, transform 180ms ease, border-color 180ms ease;
+    }
+
+    .project-link:hover {
+        background: var(--surface-soft);
+        border-color: rgba(15, 118, 110, 0.32);
+        transform: translateY(-2px);
+    }
+
+    .coming-soon {
+        display: inline-flex;
+        align-items: center;
+        min-height: 38px;
+        width: max-content;
+        padding: 7px 12px;
+        border-radius: var(--radius);
+        background: var(--surface-soft);
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+</style>
+
+<section class="section">
+    <div class="section-heading">
+        <p class="eyebrow">Projects</p>
+        <h2>Healthcare, analytics, and application work</h2>
+        <p class="lead">
+            Project links are intentionally marked as coming soon for now. Before sharing the portfolio with recruiters, add GitHub repositories, live demos, dashboard screenshots, or short case-study pages for the strongest projects.
+        </p>
+    </div>
+
+    <div class="grid">
+        
+
+        <article class="card project-card">
+            <h3>ED Tracker | Emergency Department Flow</h3>
+            <p>A healthcare operations web app designed to track emergency department patient flow, improve visibility, and support faster coordination across care teams.</p>
+            <div class="tag-list">
+                <span class="tag">Flask</span>
+                <span class="tag">SQLAlchemy</span>
+                <span class="tag">Bootstrap</span>
+            </div>
+            <div class="button-row">
+                 <a class="project-link" href="https://github.com/pavankalyan0180-creator/Healthcare_ED_Tracker" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </article>
+
+        <article class="card project-card">
+            <h3>Brahma 4 | Health Learning Application</h3>
+            <p>A digital health learning platform that organizes patient-friendly guidance around four core wellness areas: nutrition, exercise, sleep, and stress management.</p>
+            <div class="tag-list">
+                <span class="tag">Flask</span>
+                <span class="tag">SQLite</span>
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+            </div>
+            <div class="button-row">
+                <a class="project-link" href="https://github.com/pavankalyan0180-creator/brahma-app" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </article>
+
+        <article class="card project-card">
+            <h3>Medical Data Annotation Tool</h3>
+            <p>A healthcare data preparation tool for annotating medical text and converting unstructured clinical information into analysis-ready datasets.</p>
+            <div class="tag-list">
+                <span class="tag">Flask</span>
+                <span class="tag">SQLite</span>
+                <span class="tag">JavaScript</span>
+            </div>
+            <div class="button-row">
+                <a class="project-link" href="https://github.com/pavankalyan0180-creator/Healthcare_annotation_dataset_project" target="_blank" rel="noopener">GitHub</a> 
+            </div> 
+        </article>
+
+        <article class="card project-card">
+            <h3>Healthcare Data Analysis Portfolio</h3>
+            <p>A collection of healthcare analytics notebooks using Python and SQL to explore clinical datasets, identify patterns, and communicate actionable insights.</p>
+            <div class="tag-list">
+                <span class="tag">Python</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">NumPy</span>
+                <span class="tag">Seaborn</span>
+                <span class="tag">SQL</span>
+            </div>
+            <div class="button-row">
+                <a class="project-link" href="https://github.com/pavankalyan0180-creator/healthcare-projects" target="_blank" rel="noopener">GitHub</a>
+            </div>
+            
+        </article>
+
+        <article class="card project-card">
+            <h3>Hospital Emergency Room Dashboard</h3>
+            <p>A Power BI dashboard focused on emergency room performance indicators, patient volume trends, and operational decision support.</p>
+            <div class="tag-list">
+                <span class="tag">Power BI</span>
+                <span class="tag">Healthcare Analytics</span>
+                <span class="tag">Dashboarding</span>
+            </div>
+            <div class="button-row">
+                <a class="project-link" href="https://github.com/pavankalyan0180-creator/Emergency-dashboard" target="_blank" rel="noopener">GitHub</a>
+            </div>
+           
+        </article>
+
+        <article class="card project-card">
+            <h3>Stroke Patient Analytics Report</h3>
+            <p>A clinical analytics report that examines stroke patient data to highlight risk patterns, outcome indicators, and opportunities for better care planning.</p>
+            <div class="tag-list">
+                <span class="tag">Power BI</span>
+                <span class="tag">Data Analysis</span>
+                <span class="tag">Clinical Data</span>
+            </div>
+            <div class="button-row">
+                <a class="project-link" href="https://github.com/pavankalyan0180-creator/Stroke-dashboard" target="_blank" rel="noopener">GitHub</a>    
+            </div>
+        </article>
+
+        <article class="card project-card">
+            <h3>Antibiotic Utilization and Resistance Study</h3>
+            <p>A Pharm.D research project studying antibiotic utilization and culture-report findings to understand microbial resistance patterns and prescribing practices.</p>
+            <div class="tag-list">
+                <span class="tag">Clinical Pharmacy</span>
+                <span class="tag">Antibiotic Stewardship</span>
+                <span class="tag">Research</span>
+            </div>
+            <div class="button-row">
+                <a class="project-link" href="{{url_for('static', filename='certificates/186-Article Text-1270-1-10-20220304.pdf')}}" target="_blank" rel="noopener">Article</a>
+            </div>
+        </article>
+    </div>
+</section>
+{% endblock %}
