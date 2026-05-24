@@ -28,10 +28,12 @@
 
     .contact-form {
         display: grid;
-        gap: 14px;
+        gap: 16px;
     }
 
     .contact-form label {
+        display: grid;
+        gap: 7px;
         color: var(--text);
         font-weight: 700;
         font-size: 0.92rem;
@@ -40,24 +42,36 @@
     .contact-form input,
     .contact-form textarea {
         width: 100%;
-        margin-top: 6px;
-        padding: 12px 13px;
+        min-height: 48px;
+        padding: 13px 14px;
         border: 1px solid var(--line);
         border-radius: var(--radius);
         font: inherit;
         color: var(--text);
         background: #fff;
+        transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+        color: #91a0ad;
     }
 
     .contact-form input:focus,
     .contact-form textarea:focus {
         outline: 3px solid rgba(15, 118, 110, 0.16);
         border-color: var(--primary);
+        box-shadow: 0 10px 22px rgba(15, 118, 110, 0.08);
     }
 
     .contact-form textarea {
         min-height: 150px;
         resize: vertical;
+    }
+
+    .contact-form .btn {
+        width: 100%;
+        margin-top: 4px;
     }
 
     .form-alert {
@@ -138,26 +152,28 @@
             {% if error %}
             <p class="form-alert error">Message could not be sent. Please use the Gmail link or try again later.</p>
             {% endif %}
-            <form action="https://api.web3forms.com/submit" method="POST">
-                 <input type="hidden" name="access_key" value="5d589994-250d-4900-bc8d-868bb3f923a5">
-                 <input type="text" name="name" required>
-                 <input type="email" name="email" required>
-                 <textarea name="message" required></textarea>
-                 <button type="submit">Submit</button>
-            </form>
+            <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="5d589994-250d-4900-bc8d-868bb3f923a5">
+                <input type="hidden" name="subject" value="New portfolio contact message">
+                <input type="hidden" name="from_name" value="Pavan Portfolio Website">
+                <input type="hidden" name="redirect" value="{{ url_for('contact', sent='1', _external=True) }}">
+                <input type="checkbox" name="botcheck" style="display:none">
+
+                <label>
                     Your Name
-                    <input type="text" name="name" autocomplete="name" required>
+                    <input type="text" name="name" autocomplete="name" placeholder="Enter your full name" required>
                 </label>
                 <label>
                     Your Email
-                    <input type="email" name="email" autocomplete="email" required>
+                    <input type="email" name="email" autocomplete="email" placeholder="Enter your email address" required>
                 </label>
                 <label>
                     Message
-                    <textarea name="message" required></textarea>
+                    <textarea name="message" placeholder="Write your message here" required></textarea>
                 </label>
                 <button class="btn" type="submit">Send Message</button>
             </form>
+                   
         </article>
     </div>
 </section>
