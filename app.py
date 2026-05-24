@@ -1,5 +1,6 @@
 import os
 import smtplib
+import ssl
 from email.mime.text import MIMEText
 
 from dotenv import load_dotenv
@@ -17,6 +18,36 @@ def get_env_value(*names):
         if value:
             return value.strip()
     return None
+
+
+def clean_app_password(password):
+    return "".join(password.split())
+
+
+def send_with_ssl(sender_email, sender_password, email_message):
+    server = smtplib.SMTP_SSL(
+        "smtp.gmail.com",
+        465,
+        timeout=30,
+        context=ssl.create_default_context()
+    )
+    try:
+        server.login(sender_email, sender_password)
+        server.sendmail(sender_email, [sender_email], email_message.as_string())
+    finally:
+        server.quit()
+
+
+def send_with_starttls(sender_email, sender_password, email_message):
+    server = smtplib.SMTP("smtp.gmail.com", 587, timeout=30)
+    try:
+        server.ehlo()
+        server.starttls(context=ssl.create_default_context())
+        server.ehlo()
+        server.login(sender_email, sender_password)
+        server.sendmail(sender_email, [sender_email], email_message.as_string())
+    finally:
+        server.quit()
 
 
 def send_contact_email(name, reply_to_email, message):
@@ -38,6 +69,8 @@ def send_contact_email(name, reply_to_email, message):
         app.logger.error("Contact email environment variables are missing")
         return False
 
+    sender_password = clean_app_password(sender_password)
+
     email_body = "Name: {}\nEmail: {}\n\nMessage:\n{}".format(
         name,
         reply_to_email,
@@ -49,17 +82,31 @@ def send_contact_email(name, reply_to_email, message):
     email_message["To"] = sender_email
     email_message["Reply-To"] = reply_to_email
 
-    try:
-        server = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30)
+    for method_name, send_method in (
+        ("SMTP_SSL_465", send_with_ssl),
+        ("STARTTLS_587", send_with_starttls),
+    ):
         try:
-            server.login(sender_email, sender_password)
-            server.sendmail(sender_email, [sender_email], email_message.as_string())
-        finally:
-            server.quit()
-        return True
-    except Exception:
-        app.logger.exception("Contact form email failed")
-        return False
+            send_method(sender_email, sender_password, email_message)
+            app.logger.info("Contact form email sent with %s", method_name)
+            return True
+        except smtplib.SMTPAuthenticationError as error:
+            app.logger.error(
+                "Contact form Gmail authentication failed with %s: %s",
+                method_name,
+                error.smtp_error
+            )
+            return False
+        except Exception as error:
+            app.logger.warning(
+                "Contact form email failed with %s: %s: %s",
+                method_name,
+                type(error).__name__,
+                error
+            )
+
+    app.logger.error("Contact form email failed after all SMTP methods")
+    return False
 
 
 @app.route("/")
