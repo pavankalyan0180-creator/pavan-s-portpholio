@@ -69,20 +69,19 @@ def contact():
                 email_message.as_string()
             )
 
-        except Exception as e:
-
-            print(e)
-
+        except Exception:
+            app.logger.exception("Contact form email failed")
             return redirect(url_for("contact", error="send_failed"))
 
         finally:
-
             if server:
-                server.quit()
+                try:
+                    server.quit()
+                except Exception:
+                    app.logger.exception("SMTP quit failed")
 
         return redirect(url_for("contact", sent="1"))
 
-    return render_template("contact.html", page="contact")
     return render_template(
         "contact.html",
         page="contact",
