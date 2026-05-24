@@ -1,3 +1,4 @@
+from multiprocessing.util import debug
 import os
 import smtplib
 from email.mime.text import MIMEText
@@ -69,4 +70,4 @@ def contact():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
