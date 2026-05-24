@@ -71,6 +71,13 @@
         animation: successPulse 1s ease-in-out 5, successFade 450ms ease 5s forwards;
     }
 
+    .form-alert.error {
+        border-color: rgba(185, 28, 28, 0.22);
+        background: #fff1f2;
+        color: #9f1239;
+        animation: none;
+    }
+
     @keyframes successPulse {
         0%,
         100% {
@@ -127,6 +134,9 @@
             <h3>Send a message</h3>
             {% if sent %}
             <p class="form-alert">Message sent successfully. Thank you for reaching out.</p>
+            {% endif %}
+            {% if error %}
+            <p class="form-alert error">Message could not be sent. Please use the Gmail link or try again later.</p>
             {% endif %}
             <form class="contact-form" method="POST" action="/contact">
                 <label>

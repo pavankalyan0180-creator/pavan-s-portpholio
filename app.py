@@ -1,11 +1,12 @@
-from multiprocessing.util import debug
 import os
 import smtplib
 from email.mime.text import MIMEText
+
 from dotenv import load_dotenv
 from flask import Flask, redirect, render_template, request, url_for
 
 
+load_dotenv()
 app = Flask(__name__)
 
 
@@ -38,9 +39,12 @@ def contact():
         email = request.form["email"]
         message = request.form["message"]
 
-        load_dotenv()
         sender_email = os.getenv("PORTFOLIO_EMAIL")
         sender_password = os.getenv("PORTFOLIO_EMAIL_PASSWORD")
+
+        if not sender_email or not sender_password:
+            return redirect(url_for("contact", error="missing_config"))
+
         email_message = MIMEText(
             "Name: {}\nEmail: {}\n\nMessage:\n{}".format(name, email, message)
         )
@@ -50,8 +54,9 @@ def contact():
         email_message["To"] = sender_email
         email_message["Reply-To"] = email
 
-        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server = None
         try:
+            server = smtplib.SMTP("smtp.gmail.com", 587)
             server.starttls()
 
             server.login(sender_email, sender_password)
@@ -61,13 +66,22 @@ def contact():
                 sender_email,
                 email_message.as_string()
             )
+        except Exception:
+            return redirect(url_for("contact", error="send_failed"))
         finally:
-            server.quit()
+            if server:
+                server.quit()
 
         return redirect(url_for("contact", sent="1"))
 
-    return render_template("contact.html", page="contact", sent=request.args.get("sent"))
+    return render_template(
+        "contact.html",
+        page="contact",
+        sent=request.args.get("sent"),
+        error=request.args.get("error")
+    )
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
