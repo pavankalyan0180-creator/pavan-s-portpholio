@@ -26,6 +26,10 @@
         text-decoration: underline;
     }
 
+    .contact-card p {
+        overflow-wrap: anywhere;
+    }
+
     .contact-form {
         display: grid;
         gap: 16px;
@@ -117,6 +121,24 @@
             grid-template-columns: 1fr;
         }
     }
+
+    @media (max-width: 520px) {
+        .contact-links {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .contact-links a {
+            min-height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: #fff;
+            text-align: center;
+        }
+    }
 </style>
 
 <section class="section">
@@ -129,7 +151,7 @@
     </div>
 
     <div class="contact-layout">
-        <article class="card">
+        <article class="card contact-card">
             <h3>Contact details</h3>
             <p><strong>Name:</strong> Dr. Kamatam Pavan Kalyan Reddy</p>
             <p><strong>Email:</strong> <a href="mailto:pavankalyankamatam127@gmail.com">pavankalyankamatam127@gmail.com</a></p>

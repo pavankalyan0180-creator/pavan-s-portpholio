@@ -62,10 +62,35 @@
     @media (max-width: 850px) {
         .hero {
             grid-template-columns: 1fr;
+            gap: 26px;
+        }
+
+        .hero-panel {
+            order: 2;
+        }
+
+        .hero-photo {
+            order: 1;
+            width: min(72vw, 300px);
+            border-width: 6px;
         }
 
         .quick-stats {
             grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-panel {
+            padding: 22px;
+        }
+
+        .hero-photo {
+            width: min(78vw, 260px);
+        }
+
+        .stat {
+            padding: 16px;
         }
     }
 </style>
